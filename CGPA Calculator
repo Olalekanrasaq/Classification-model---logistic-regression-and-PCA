@@ -1,0 +1,29 @@
+import pandas as pd
+previous_cgpa = float(input('Enter your previous CGPA '))
+previous_units = float(input('Enter your previous units '))
+
+# create an empty lists for units and grades
+units = []
+grades = []
+
+n = int(input('Number of courses ')) # number of courses offered
+
+# pass units and grade for each course into the empty list for units and grades respectively 
+for i in range(0,n):
+    unit = int(input('Enter unit '))
+    grade = int(input('Enter grade'))
+    units.append(unit)
+    grades.append(grade)
+    
+total_point_previous = previous_cgpa * previous_units # total grade point for previous cgpa
+
+data = {'Unit': units,
+       'Grade': grades}
+
+df = pd.DataFrame(data) # creating dataframe for units and grade for each course respectively
+df['point'] = df['Unit'] * df['Grade']
+total_points = float(df['point'].sum()) + total_point_previous
+total_units = float(df['Unit'].sum()) + previous_units
+cgpa = total_points / total_units
+
+print('Your CGPA is {:.2f}'.format(cgpa))
